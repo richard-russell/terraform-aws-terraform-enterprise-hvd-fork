@@ -866,7 +866,7 @@ variable "redis_automatic_failover_enabled" {
   default     = true
 
   validation {
-    condition     = var.redis_automatic_failover_enabled ? length(var.redis_subnet_ids) > 1 : true
+    condition     = var.tfe_operational_mode == "active-active" && var.redis_automatic_failover_enabled ? length(var.redis_subnet_ids) > 1 : true
     error_message = "If `true`, you must specify more than one subnet within `redis_subnet_ids`."
   }
 }
